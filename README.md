@@ -1,51 +1,55 @@
 # 撸猫模拟器
 
-> 十三只猫，摸背会呼噜，尾巴能拉长。一个网页，打开就能玩。
+中文版单文件交互式撸猫网页。13 只猫，支持抚摸、拉尾巴、Web Audio 合成呼噜声、体格调节和夜间模式。
 
-中文版单文件交互式撸猫网页。无需安装、无需服务器、无外部依赖——把 `index.html` 下载下来双击，就是一只猫。
+[Live Demo](https://pet-cat-sim.app.workbuddy.host/?sharecode=SLVSO2KW2E) · [下载 index.html](index.html)
 
-## 试玩
+## Features
 
-- **本地**：下载 [`index.html`](index.html)，双击用浏览器打开
-- **在线版**：<https://pet-cat-sim.app.workbuddy.host/?sharecode=SLVSO2KW2E>
+- 13 只猫，不同花色与互动反应
+- 抚摸触发呼噜声（Web Audio API 实时合成，无音频文件）
+- 可拖动拉长尾巴，松手回弹
+- 滑块调节猫的体格
+- 夜间模式切换
+- 全部资源内嵌，零外部依赖，离线可用
 
-## 能做什么
+## Quick Start
 
-| 玩法 | 说明 |
+直接双击 `index.html`，或：
+
+```bash
+git clone https://github.com/beatricezhu6-byte/pet-the-cat-simulator.git
+cd pet-the-cat-simulator
+# 用浏览器打开 index.html
+```
+
+不需要 Node、不需要构建、不需要服务器。
+
+## Project Structure
+
+```
+.
+├── index.html       # 成品：HTML/CSS/JS/贴图全部内嵌，838 KB
+├── app.js           # 交互逻辑（可读源码）
+├── layout.html      # 界面与样式（可读源码）
+├── directory.json   # 贴图索引
+└── photos.bin       # AVIF 贴图数据
+```
+
+`index.html` 是自包含产物；其余四个文件是还原出的可读源码，便于二次开发。
+
+## Tech Stack
+
+- 原生 HTML / CSS / JavaScript，无框架、无依赖
+- Web Audio API 合成呼噜声
+- 贴图使用 AVIF 编码，打包为二进制 `photos.bin`，运行时索引加载
+
+## Development
+
+| 要改什么 | 改哪个文件 |
 | --- | --- |
-| 摸猫 | 在猫身上拖动，它会舒服地眯眼 |
-| 呼噜声 | 摸背触发呼噜声，声音由浏览器实时合成，不加载音频文件 |
-| 拉尾巴 | 抓住尾巴拉长，松手弹回 |
-| 换体型 | 拖动滑块调节猫的体格，胖猫瘦猫随便切 |
-| 夜间模式 | 一键切换夜色，深夜撸猫更应景 |
-| 十三只猫 | 不同花色、不同性格，慢慢认 |
+| 文案、布局、样式 | `layout.html` |
+| 交互逻辑 | `app.js` |
+| 猫的贴图 | `photos.bin` + `directory.json` |
 
-## 为什么是单文件
-
-成品 `index.html` 约 838 KB，把界面、逻辑、十三只猫的贴图、索引全部内嵌进一个文件里：
-
-- 不联网也能玩，断网照常打开
-- 不用装环境、不用起服务
-- 发给别人只要发一个文件
-
-同时仓库里也放了还原出来的可读源码，想改哪块改哪块：
-
-| 文件 | 用途 | 大小 |
-| --- | --- | --- |
-| [`index.html`](index.html) | 成品，单文件自包含 | 838 KB |
-| [`app.js`](app.js) | 交互逻辑源码 | 127 KB |
-| [`layout.html`](layout.html) | 界面与 CSS 源码 | 40 KB |
-| [`directory.json`](directory.json) | 猫贴图索引 | 2.8 KB |
-| [`photos.bin`](photos.bin) | AVIF 贴图数据 | 502 KB |
-
-## 自己改
-
-- **改文案 / 排版**：编辑 `layout.html`
-- **改交互逻辑**：编辑 `app.js`
-- **换猫的贴图**：替换 `photos.bin`，同步更新 `directory.json` 里的索引
-
-改完直接打开 `layout.html` 看效果；要打包成单文件成品，把四个文件按 `index.html` 里的内嵌方式重新注入即可。
-
-## 一句话
-
-深夜想撸猫的时候，它一直在。
+改完源码后，按 `index.html` 中的内嵌方式重新注入四个文件即可生成新成品。
